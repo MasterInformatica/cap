@@ -1,6 +1,6 @@
 # ucmCap
 
-Master Computer Engineering, CAP (High performance computing).
+Master in Computer Engineering, CAP (High performance computing).
 
 
 This repository contains most of the slides and code for the CAP subject.
