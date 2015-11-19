@@ -1,0 +1,21 @@
+1.- Dependencias:
+
+    El istado de dependencias se encuentra especificado en el manual
+    (doc/), estas son:
+    	    XeLaTeX
+	    Fira Sans and Mono font
+	    TikZ
+
+   Para instalar Fira Sans existe un script en la carpeta Docker/ que
+   lo descarga e instala solo.
+
+2.- Uso:
+
+    En la carpeta donde se encuentre el .tex, copiar las librerias
+    lib/*.sty, y llamar al script ./build.sh <fichero.tex>
+
+    OJO: La demo tiene cosa de gráficas que en una instalación normal
+    no funcionaría, por lo que al compilarla puede salir algún error
+    relacionado con esto. Sin embargo, si tus presentaciones no van a
+    utilizar este tipo de cosas, funcionará bien.
+
