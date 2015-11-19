@@ -1,0 +1,5 @@
+OJO a esta:
+https://wiki.hpcc.msu.edu/display/gpgpu/Intel+Threading+Building+Blocks+Talk+slides
+
+Tutorial completo, pero excesivo:
+http://www.inf.ed.ac.uk/teaching/courses/ppls/TBBtutorial.pdf

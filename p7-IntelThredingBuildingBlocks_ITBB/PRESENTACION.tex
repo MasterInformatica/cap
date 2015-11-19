@@ -8,6 +8,9 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
 
+\usepackage{listings}
+
+
 \title{Intel Threading Building Blocks}
 %\subtitle{}
 \date{}%23 Noviembre 2015}
@@ -35,10 +38,64 @@
   Slide 1.
 \end{frame}
 
-
 \begin{frame}
   \frametitle{Título Pág 2.}
   Slide 2.
+\end{frame}
+
+
+%===== EJEMPLO =====
+\begin{frame}[fragile] % Frame ejemplo 1
+  \frametitle{Ejemplo}
+  \alert{Problema} de acceso a variable compartida:
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \center Thread A:
+      \begin{lstlisting}[language=C++, frame=single]
+for( ; ; ){
+    // do something ...
+    // ...
+    work_counter += n;
+}
+      \end{lstlisting}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \center Thread B:
+      \begin{lstlisting}[language=C++, frame=single]
+for( ; ; ){
+    // do something ...
+    // ...
+    work_counter += n;
+}
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+  \alert{Solución} usando pthreads:
+  \begin{itemize}
+  \item Protejer la variable (Mutex, cerrojos, semáforos, ...)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile] % Frame ejemplo 2
+  \frametitle{Ejemplo}
+  \alert{Solución} usando Intel TBB:
+
+  \begin{lstlisting}[language=C++, frame=single]
+tbb::atomic<int> work_counter;
+// ...
+
+for( ; ; ){
+    // do something ...
+    // ...
+    work_counter += n;
+}
+  \end{lstlisting}
+  Internamente está implementado:
+  \begin{itemize}
+  \item work\_counter.fetch\_and\_store
+  \item work\_counter.fetch\_and\_add
+  \item work\_counter.compare\_and\_swap
+  \end{itemize}
 \end{frame}
 
 \end{document}
