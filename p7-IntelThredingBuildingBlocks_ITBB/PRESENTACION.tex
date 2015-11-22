@@ -28,16 +28,16 @@
 
 
 %%======= INDICE ========================================
-\begin{frame}
-  \frametitle{Índice}
-  \setbeamertemplate{section in toc}[sections numbered]
-  \tableofcontents[hideallsubsections]
-\end{frame}
+%\begin{frame}
+%  \frametitle{Índice}
+%  \setbeamertemplate{section in toc}[sections numbered]
+%  \tableofcontents[hideallsubsections]
+%\end{frame}
 
-\section{Introduction} %=== Esrto genera una página de sección.
+%\section{Introduction} %=== Esrto genera una página de sección.
 
 \begin{frame}
-  \frametitle{Intel Threading Building Blocks.}
+  \frametitle{Intel Threading Building Blocks}
   \emph{ \
     Es una librería \texttt{C++} desarrollada por \emph{Intel}, cuyo objetivo
     es facilitar la creación de programas paralelos.
@@ -46,8 +46,8 @@
     \begin{itemize}
       \item[] Fabricante: Intel.
       \item[] Compatibilidad: FreeBSD, Linux, Solaris, OS X, Windows, Android.
-      \item[] Versión \texttt{1.0} el 29 de Augosto de 2006.
-      \item[] Versión actual: 4.4 / 25 de Augsto de, 2015.
+      \item[] Versión \texttt{1.0} el 29 de Agosto de 2006.
+      \item[] Versión actual: 4.4 / 25 de Agosto de, 2015.
       \item[] Licencia: dual: commercial / open source (GPLv2 with the (libstdc++)
               runtime exception), plus Freeware.
     \end{itemize}    
@@ -76,7 +76,7 @@
   \frametitle{Contenidos}
   Intel TBB proporciona:
   \begin{itemize}
-  \item \textbf{Básicos:}\\\quad\texttt{parallel\_for},\texttt{parallel\_reduce},
+  \item \textbf{Básicos:}\\\quad\texttt{parallel\_for}, \texttt{parallel\_reduce},
     \texttt{parallel\_scan}.
   \item \textbf{Avanzados:}\\\quad\texttt{parallel\_while}, \texttt{parallel\_do},
     \texttt{parallel\_sort}.
@@ -86,18 +86,12 @@
     \texttt{spin\_mutex},\texttt{queuing\_mutex}.
   \item \textbf{Operaciones atómicas:}\\\quad
     \texttt{fetch\_and\_increment}, \texttt{fetch\_and\_decrement},
-    \texttt{fecth\_and\_add},\texttt{compare\_and\_swap},
+    \texttt{fecth\_and\_add}, \texttt{compare\_and\_swap},
     \texttt{compare\_and\_store}.
   \end{itemize}
 
 \end{frame}
 
-
-
-\begin{frame}
-  \frametitle{Título Pág 2.}
-  Slide 2.
-\end{frame}
 
 
 %===== EJEMPLO =====
@@ -128,7 +122,7 @@ for( ; ; ){
   \end{columns}
   \alert{Solución} usando pthreads:
   \begin{itemize}
-  \item Protejer la variable (Mutex, cerrojos, semáforos, ...)
+  \item Proteger la variable (Mutex, cerrojos, semáforos, ...)
   \end{itemize}
 \end{frame}
 
