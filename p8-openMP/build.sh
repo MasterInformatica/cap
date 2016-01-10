@@ -3,8 +3,8 @@
 
 SRC=$1
 
-xelatex -shell-escape $SRC
-xelatex -shell-escape $SRC
+pdflatex -shell-escape $SRC
+pdflatex -shell-escape $SRC
 
 
 FICH="${1%.*}"

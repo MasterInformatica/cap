@@ -8,46 +8,140 @@
 %\usepackage{pgfplots}
 %\usepgfplotslibrary{dateplot}
 
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
 \usepackage{listings}
 
 
 \title{}
 \subtitle{Ejemplo: openMP}
 \date{}
-\author{Luis Mar√≠a Costero Valero\\Jes√∫s Javier Domenech Arellano\\Hristo
+\author{Luis MarÌa Costero Valero\\Jes˙s Javier Domenech Arellano\\Hristo
   Ivanov Ivanov}
 \institute{11 Enero 2016}
 
 \titlegraphic{\hfill\includegraphics[scale=0.2]{images/logo.png}}
+
+
+\metroset{titleformat=regular}
+\metroset{inner/sectiontitleformat=regular}
+\metroset{outer/frametitleformat=regular}
+\metroset{block=fill}
+
+
+%== Estilos propios de lstlisting
+\lstset{%
+  %backgroundcolor=\color{yellow!20},%
+    basicstyle=\tiny\ttfamily,%
+    numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
+    frame=single%
+    }%
+
+% Add your keywords here, and have this in a separate file
+% and include it in your preamble
+\lstset{emph={%  
+    procedure, end, to, do, for, pragma, omp, parallel%
+    },emphstyle={\color{black}\bfseries\underline}%
+}%
+
+
+
 \begin{document}
 
 \maketitle
 
 
 
-
-
 %%======= INDICE ========================================
 %\begin{frame}
-%  \frametitle{√çndice}
+%  \frametitle{Õndice}
 %  \setbeamertemplate{section in toc}[sections numbered]
 %  \tableofcontents[hideallsubsections]
 %\end{frame}
 
-%\section{Introduction} %=== Esrto genera una p√°gina de secci√≥n.
+%\section{Introduction} %=== Esrto genera una p·gina de secciÛn.
 
-\begin{frame}
-  \frametitle{Begin}
+
+
+\begin{frame}[fragile,fragile]
+  \frametitle{Cholesky}
+\begin{lstlisting}
+procedure CHOLESKY(A)
+int i, j, k;
+for k:= 0 to n-1 do
+   A[k,k] := sqrt( A [k,k] );    /* Obtener la raiz cuadrada de la diagonal */
+   for j := k+1 to n-1 do
+      A[k,j] := A[k,j]/A[k,k];    /* Fase de divisiÛn */
+   end for
+   for i := k+1 to n-1 do
+      for j := i to n-1 do
+         A[i,j] := A[i,j] - A[k,i] * A[k,j];    /* Fase de eliminaciÛn */
+      end for
+   end for
+end for
+\end{lstlisting}
+
+Dada una matriz cuadrada $A$ definida positiva, obtener otra matriz $C$
+triangular inferior, tal que:
+$$ A = C * C^t $$
+
+\begin{itemize}
+\item ResoluciÛn de sistemas mediante factorizaciÛn de la matriz.
+\item Complejidad $O(N^3 / 3)$.
+\item F·cilmente paralelizable.
+\end{itemize}
+
+
 \end{frame}
 
 
+
+
+
+
 \begin{frame}
-  \frametitle{Ejemplo}
+  \frametitle{Pruebas realizadas}
 \end{frame}
 
-%======= BIBLIOGRAF√çA =======
+\begin{frame}[fragile]
+  \frametitle{Cholesky usando OPenMP}
+  
+\begin{lstlisting}
+void chol_using_openmp(const Matrix A, Matrix U){
+   unsigned int i, j, k; 
+   unsigned int size = A.num_rows * A.num_columns;
+
+   //#pragma omp parallel for 
+   for (i = 0; i < size; i ++)
+      U.elements[i] = A.elements[i];
+   for(k = 0; k < U.num_rows; k++){
+      U.elements[k * U.num_rows + k] = sqrt(U.elements[k * U.num_rows + k]);
+      // Division step
+      #pragma omp parallel for
+      for(j = (k + 1); j < U.num_rows; j++)
+         U.elements[k * U.num_rows + j] /= U.elements[k * U.num_rows + k]; 
+      // Elimination step
+      float * elems = U.elements;
+      omp_set_num_threads(NUM_OMPTHREADS); // Set the number of threads		
+      #pragma omp parallel for private(i,j)
+      for(i = (k + 1); i < U.num_rows; i++){
+         for(j = i; j < U.num_rows; j++){
+            U.elements[i * U.num_rows + j] -= U.elements[k * U.num_rows + i] * U.elements[k * U.num_rows + j];
+         }
+      }
+   }
+
+   for(i = 0; i < U.num_rows; i++)
+      for(j = 0; j < i; j++)
+         U.elements[i * U.num_rows + j] = 0.0;
+}
+\end{lstlisting}
+\end{frame}
+
+%======= BIBLIOGRAFÕA =======
 \begin{frame}
-  \frametitle{Bibliograf√≠a}
+  \frametitle{BibliografÌa}
   
   \begin{enumerate}
   \item \textbf{Wikipedia:}\\\url{https://en.wikipedia.org/}
