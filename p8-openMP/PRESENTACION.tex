@@ -171,21 +171,18 @@ void chol_using_openmp(const Matrix A, Matrix U){
   \frametitle{Resultados}
   
   \begin{figure}
+    \centering
     \begin{tikzpicture}
       \begin{axis}[
         mbarplot,
         xlabel={Tipo de ejecución},
         ylabel={Tiempo (s)},
-        %enlargelimits=0.15,
-        %legend style={at={(0.5,-0.15)},
-        %  anchor=north,legend columns=-1},
-        %ylabel={Tiempo (s)},
         symbolic x coords={secuencial,pthread,OpenMP},
         xtick=data,
         nodes near coords,
         nodes near coords align={vertical},
         ]
-        \addplot coordinates {(secuencial,7) (pthread,9) (OpenMP,4)};
+        \addplot coordinates {(secuencial,43.17) (pthread,27.70) (OpenMP,12.76)};
         \addplot coordinates {(secuencial,20.97) (pthread,10.81) (OpenMP,5.58)};
         \legend{gcc, icc}
       \end{axis}
