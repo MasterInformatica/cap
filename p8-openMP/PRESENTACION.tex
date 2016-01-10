@@ -101,32 +101,7 @@ $$ A = C * C^t $$
 
 
 
-\begin{frame}
-  \frametitle{Pruebas realizadas}
 
-  \alert{Pruebas realizadas:}
-  \begin{itemize}
-  \item Ejecución de Cholesky \textbf{secuencial} (gcc \& icc).
-  \item Ejecución de Cholesky usando \textbf{16 pthreads} (gcc \& icc).
-  \item Ejecución de Cholesky utilizando \textbf{OpenMP - gcc}.
-  \item Ejecución de Cholesky utilizando \textbf{OpenMP - Intel}.
-  \end{itemize}
-
-  \alert{Características de las pruebas:}
-  \begin{itemize}
-  \item Matriz 4096x4096 elementos.
-  \item 16 hilos de ejecución.
-  \end{itemize}
-  \alert{Características de la máquina:}
-  \begin{itemize}
-  \item Intel Xeon E5530 - 2.4 GHz
-  \item 48 GB RAM
-  \item Debian Jessie, Kernel 3.14-1-amd64
-  \item gcc v4.8.3
-  \item icc v14.0.3
-  \end{itemize}
-
-\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Cholesky usando OpenMP}
@@ -166,6 +141,32 @@ void chol_using_openmp(const Matrix A, Matrix U){
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Pruebas realizadas}
+
+  \alert{Pruebas realizadas:}
+  \begin{itemize}
+  \item Ejecución de Cholesky \textbf{secuencial} (gcc \& icc).
+  \item Ejecución de Cholesky usando \textbf{16 pthreads} (gcc \& icc).
+  \item Ejecución de Cholesky utilizando \textbf{OpenMP - gcc}.
+  \item Ejecución de Cholesky utilizando \textbf{OpenMP - Intel}.
+  \end{itemize}
+
+  \alert{Características de las pruebas:}
+  \begin{itemize}
+  \item Matriz 4096x4096 elementos.
+  \item 16 hilos de ejecución.
+  \end{itemize}
+  \alert{Características de la máquina:}
+  \begin{itemize}
+  \item Intel Xeon E5530 - 2.4 GHz
+  \item 48 GB RAM
+  \item Debian Jessie, Kernel 3.14-1-amd64
+  \item gcc v4.8.3
+  \item icc v14.0.3
+  \end{itemize}
+
+\end{frame}
 
 \begin{frame}
   \frametitle{Resultados}
