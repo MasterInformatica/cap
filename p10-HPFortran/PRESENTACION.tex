@@ -45,7 +45,7 @@
 
 \lstset{%
   %backgroundcolor=\color{yellow!20},%
-    basicstyle=\tiny\ttfamily,%
+    basicstyle=\small\ttfamily,%
     numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
     frame=l%
     }%
@@ -64,17 +64,89 @@
 
 %\section{Introduction} %=== Esrto genera una página de sección.
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{¿Qué es?}
-
+  \emph{High Performance Fortran} es una extensión de \emph{Fortran 90} que
+  añade directivas de distribución de datos. Extiende el paralelismo a nivel de
+  datos, permitiendo la distribución de estos datos entre multiples
+  procesadores.
 \end{frame}
 
-\begin{frame}
-  \frametitle{¿Cómo?}
+\begin{frame}[fragile]
+  \frametitle{Historia.}
+  La primera versión de \emph{HPF} se publico den 1993 por el \emph{High
+  Performance Fortran Forum (HPFF)}, convocado y presidido por Ken Kennedy de
+  la Rice University. \\
+  Al finalizar la decada de los 90 \emph{HPF} cayo en desuso en vafor a otras
+  soluciones como \emph{OpenMP}. Sin embargo \emph{HPF} ha dejado huella
+  infuenciado las versiones futuras de \emph{Fortran}.
 \end{frame}
 
-\begin{frame}
-  \frametitle{Análisis????}
+\begin{frame}[fragile]
+  \frametitle{Directivas de distribución de datos.}
+  La directiva \texttt{DISTRIBUTE} especifica la partición de lo datos entre
+  los procesadores. \\
+  La directiva \texttt{ALIGN} fuerza a que los datos correspondientes de dos o
+  más arrays esten almacenados en un mismo procesador. \\
+  La directiva \texttt{PROCESSORS} especifica la configuración de los
+  procesadores para el uso con la directiva \texttt{DISTRIBUTE} \\
+  La directiva \texttt{TEMLATE} especifica un espacio de indices vacio, para el
+  uso con la directiva \texttt{ALIGN}.
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Directiva FORALL.}
+    \begin{center}
+    \texttt{FORALL (triplet, ..., triplet, mask) assignment} \newline
+    \end{center}
+    donde \texttt{assignment} es una asignación aritmética o de punteros y
+    \texttt{triplet} tiene el siguiente formato \newline
+    \begin{center}
+    \texttt{subscript =  lower-bound :  upper-bound :  stride} \newline
+    \end{center}
+    y especifica un consjunto de indices (siendo \texttt{: stride} opcional)
+
+    \begin{lstlisting}
+      FORALL (i=1:m, j=1:n)      X(i,j) = i+j
+      FORALL (i=1:n, j=1:n, i<j) Y(i,j) = 0.0
+      FORALL (i=1:n)             Z(i,i) = 0.0 
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Directiva INDEPENDENT.}
+    Directiva que prece al \texttt{do-loop} afirmando que las iteraciones del
+    bucle pueden realizarse de forma endependiente, en cualquier orden y de
+    forma concurrente.
+    \begin{lstlisting}
+    !HPF$   INDEPENDENT 
+            do i=1,n 
+              A(Index(i)) = B(i)
+            enddo
+    \end{lstlisting}
+    En el ejemplo de arriba se asume que el array \texttt{Index} no contiene
+    elementos repetidos, y que \texttt{A} y \texttt{B} no comparten memoria.
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pure Procedures.}
+  \emph{High Performance Fortran} no permite definir funciones puras, sin
+  efectos laterales. Estas pueden ser referenciadas en construciones
+  \texttt{FORALL} y bucles \texttt{INDEPENDNT do-loop}.
+    \begin{lstlisting}
+      PURE FUNCTION DOUBLE(X)
+      REAL, INTENT(IN) :: X
+      DOUBLE = 2 * X
+      END FUNCTION DOUBLE
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bibliografía}
+  \url{http://www.mcs.anl.gov/~itf/dbpp/text/node82.html}
+  \url{http://h21007.www2.hp.com/portal/download/files/unprot/fortran/docs/lrm/lrm0009.htm}
+  \url{https://en.wikipedia.org/wiki/High_Performance_Fortran}
+  \url{http://hpff.rice.edu/}
 \end{frame}
 
 \end{document}
