@@ -85,4 +85,37 @@ Las políticas de planificación de Maui abarcan:
   \frametitle{Análisis????}
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Job}
+  
+\textbf{Job: } La unidad de trabajo de Maui (lo que va a ejecutar).\\
+Un \emph{job} está formado a cu vez por:
+
+\begin{enumerate}
+\item Dueño del trabajo.
+\item Varios \textbf{Requisitos} (cada uno con sus limitacioens de recursos).
+\item Tiempo máximo de ejecución.
+\end{enumerate}\\
+
+Un \textbf{Requisito} está formado por:
+\begin{itemize}
+\item Definición de la tarea.
+\item Límite de recursos: Procesadores, memoria, swap, disk.
+\item Task count: Nº de instancias de la tarea a ejecutar en el requisito.
+\item Task list: Lista de nodos en los que la tarea tiene que ser
+  ejecutada.
+\item Recursos estadísticos: Qué aspectos de la tarea monitorear.
+\end{itemize}
+
+% \begin{block}{Ejemplo}
+%   Un \textbf{trabajo} puede consistir en 2 requisitos:
+%   \begin{enumerate}
+%   \item 1 nodo, 512 MB RAM como mínimo
+%   \item 24 nodos, 128 MB como mínimo.
+%   \end{enumerate}
+% \end{block}
+
+
+\end{frame}
 \end{document}
