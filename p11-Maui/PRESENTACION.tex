@@ -23,7 +23,7 @@
   Ivanov Ivanov}
 \institute{26 Enero 2016}
 
-\titlegraphic{\hfill\includegraphics[scale=0.2]{HPFF_logo.jpg}}
+%\titlegraphic{\hfill\includegraphics[scale=0.2]{HPFF_logo.jpg}}
 
 \definecolor{bgg}{HTML}{FBFBFB}
 \def\gcolor{bgg}    % while presenting
@@ -73,16 +73,30 @@ Las políticas de planificación de Maui abarcan:
 \begin{itemize}
 \item Prioridad dinámica.
 \item Reservas.
-\item fairShare \emph{(Compartición justa)}
+\item fairShare \emph{\footnotesize(Compartición justa)}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{¿Cómo?}
+  \frametitle{Funcionalidades}
+  \begin{enumerate}
+  \item \textbf{Control de Tráfico:} Gestiona las tareas para que no interfieran. 
+  \item \textbf{Centrado en Objetivos:} Configuración de cluster según la tarea
+  \item \textbf{Optimizaciones:} Supeditado a los dos puntos
+    anteriores, el planificador intenta aprovechar los recursos del cluster.
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Análisis????}
+  \frametitle{Tipos de Nodos}
+  SHARED
+	Tasks from any combination of jobs may utilize available resources
+SINGLEUSER
+	Tasks from any jobs owned by the same user may utilize available resources
+SINGLEJOB
+	Tasks from a single job may utilize available resources
+SINGLETASK
+	A single task from a single job may run on the node
 \end{frame}
 
 
@@ -118,4 +132,5 @@ Un \textbf{Requisito} está formado por:
 
 
 \end{frame}
+
 \end{document}
