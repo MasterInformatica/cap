@@ -144,14 +144,14 @@
 
 
 \begin{frame}
-  \frametitle{Prioridad a las tareas:}
+  \frametitle{Prioridad a las tareas}
   La prioridad se calcula de acuerdo a cada \alert{componente}:\\
   \begin{center}
     \texttt{Nodos}, \texttt{Procesadores}, \texttt{Memoria}, \texttt{Swap}, \texttt{Disco}
   \end{center}
 
   \begin{center}
-    \texttt{<COMPONENT WEIGHT> * <SUBCOMPONENT WEIGHT> * <PROPRITY
+    \texttt{<COMPONENT WEIGHT> * <SUBCOMPONENT WEIGHT> * <PRIORITY
       SUBCOMPONENT VALUE>}
   \end{center}
 
@@ -178,7 +178,28 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Justicia}
+  \alert{Prioridad de un \emph{job}.} 
 
+  \alert{Gestión de memoria:} Se tiene en cuenta el espacio disponible.
+
+  \alert{FairShare:} Mecanismo de registro histórico de uso de los
+  recursos. Se calcula el uso de recursos por parte de los diferentes
+  autorizados \emph{(p.e., groups, user, QoS,...)}
+
+  \alert{Directivas limitantes:} Opciones de configuración y permisos
+  de un usuario.
+  \begin{itemize}
+  \item \textbf{MAXJOB:} máximo número de \emph{jobs} simultáneos.
+  \item \textbf{MAXPROC:} máximo número de procesadores utilizados 
+  \item \textbf{MAXWC:} máximo tiempo que un \emph{job} puede estar activo.
+  \item \textbf{MAXNODE:} máximo número de nodos.
+  \item \textbf{MAXMEM:} memoria máxima que puede almacenar entre
+    todos los \emph{jobs}.
+  \end{itemize}
+
+\end{frame}
 
 \begin{frame}
   \frametitle{Bibliografía}
