@@ -1,12 +1,12 @@
-\documentclass[10pt]{beamer}
+\documentclass[11pt]{beamer}
 
 \usetheme{m}
 
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
 
-%\usepackage{pgfplots}
-%\usepgfplotslibrary{dateplot}
+% \usepackage{pgfplots}
+% \usepgfplotslibrary{dateplot}
 
 \usepackage[latin1]{inputenc}
 \usepackage[spanish]{babel}
@@ -23,114 +23,177 @@
   Ivanov Ivanov}
 \institute{26 Enero 2016}
 
-%\titlegraphic{\hfill\includegraphics[scale=0.2]{HPFF_logo.jpg}}
+% \titlegraphic{\hfill\includegraphics[scale=0.2]{HPFF_logo.jpg}}
 
-\definecolor{bgg}{HTML}{FBFBFB}
-\def\gcolor{bgg}    % while presenting
-%\def\gcolor{black} % while developing
 
-\def\tikzpicdim{
-  \draw[step=0.1cm, color=\gcolor] (0,-1) grid (12,7);
-  \draw[step=1cm, color=\gcolor] (0,-1) grid (12,7);
-}
-
-\let\tikzpicdimlarge\tikzpicdim
-
-\def\myurl{\hfil\penalty 100 \hfilneg \hbox}
-
+%----------------------------------------------------------------------
+% Modificaciones del template
 \metroset{titleformat=regular}
 \metroset{inner/sectiontitleformat=regular}
 \metroset{outer/frametitleformat=regular}
 \metroset{block=fill}
+\newcommand\sectionDark[1]{{\metroset{background=dark} \section{#1} }}
+\newcommand\sectionDarkSpecial[1]{{\metroset{background=dark} \section*{#1}
+  }}
 
-\lstset{%
-  %backgroundcolor=\color{yellow!20},%
-    basicstyle=\tiny\ttfamily,%
-    numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
-    frame=l%
-    }%
+
+
 
 
 \begin{document}
 
 \maketitle
 
-%%======= INDICE ========================================
-%\begin{frame}
-%  \frametitle{Índice}
-%  \setbeamertemplate{section in toc}[sections numbered]
-%  \tableofcontents[hideallsubsections]
-%\end{frame}
+%% ======= INDICE ========================================
+% \begin{frame}
+%   \frametitle{Índice}
+%   \setbeamertemplate{section in toc}[sections numbered]
+%   \tableofcontents[hideallsubsections]
+% \end{frame}
 
-%\section{Introduction} %=== Esrto genera una página de sección.
+% \section{Introduction} %=== Esrto genera una página de sección.
 
 \begin{frame}
   \frametitle{¿Qué es?}
-Maui es un planificador de tareas para clusters.\\
-Se desarrolló a mediados de los 90.\\
-
-Las políticas de planificación de Maui abarcan:
-\begin{itemize}
-\item Prioridad dinámica.
-\item Reservas.
-\item fairShare \emph{\footnotesize(Compartición justa)}
-\end{itemize}
+  
+  \begin{block}{Maui Scheduler}
+    ~\\
+    -- Planificador de tareas para clusters.\\
+    -- Desarrollo a mediados de los 90.\\
+    -- Desarrollado por \texttt{Cluster Resources, Inc.}\\
+    -- Código libre. Licencia no-comercial.\\
+    -- Actualmente en desuso.\\
+    Recomiendan migrar a \emph{Moab} (código cerrado).\\
+    ~
+  \end{block}
 \end{frame}
 
+
 \begin{frame}
-  \frametitle{Funcionalidades}
+  \frametitle{Características de Maui I}
   \begin{enumerate}
-  \item \textbf{Control de Tráfico:} Gestiona las tareas para que no interfieran. 
-  \item \textbf{Centrado en Objetivos:} Configuración de cluster según la tarea
+  \item Múltiples políticas de planificación.
+  \item Ajuste de prioridades de forma dinámica.
+  \item Reserva de nodos.
+  \item Sistema de control de procesos avanzado.
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Características de Maui II}
+  \begin{enumerate}
+  \item \textbf{Control de Tráfico:} Gestiona las tareas para que no
+    interfieran entre si. 
+  \item \textbf{Centrado en Objetivos:} Configuración de cluster según la tarea.
   \item \textbf{Optimizaciones:} Supeditado a los dos puntos
     anteriores, el planificador intenta aprovechar los recursos del cluster.
   \end{enumerate}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Tipos de Nodos}
-  SHARED
-	Tasks from any combination of jobs may utilize available resources
-SINGLEUSER
-	Tasks from any jobs owned by the same user may utilize available resources
-SINGLEJOB
-	Tasks from a single job may utilize available resources
-SINGLETASK
-	A single task from a single job may run on the node
+  \frametitle{Job}
+  
+  \textbf{Job: } La unidad de trabajo de Maui (lo que va a ejecutar).\\
+  Un \emph{job} está formado a su vez por:
+
+  \begin{enumerate}
+  \item Dueño del trabajo.
+  \item Varios \textbf{Requisitos} (cada uno con sus limitaciones de recursos).
+  \item Tiempo máximo de ejecución.
+  \end{enumerate}
+ 
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Job}
-  
-\textbf{Job: } La unidad de trabajo de Maui (lo que va a ejecutar).\\
-Un \emph{job} está formado a cu vez por:
+  \frametitle{Requisitos}
+  Un \textbf{Requisito} está formado por:
+  \begin{itemize}
+  \item Definición de la tarea.
+  \item Límite de recursos: Procesadores, memoria, swap, disk.
+  \item Task count: Nº de instancias de la tarea a ejecutar en el requisito.
+  \item Task list: Lista de nodos en los que la tarea tiene que ser
+    ejecutada.
+  \item Recursos estadísticos: Qué aspectos de la tarea monitorear.
+  \end{itemize}
 
-\begin{enumerate}
-\item Dueño del trabajo.
-\item Varios \textbf{Requisitos} (cada uno con sus limitacioens de recursos).
-\item Tiempo máximo de ejecución.
-\end{enumerate}\\
-
-Un \textbf{Requisito} está formado por:
-\begin{itemize}
-\item Definición de la tarea.
-\item Límite de recursos: Procesadores, memoria, swap, disk.
-\item Task count: Nº de instancias de la tarea a ejecutar en el requisito.
-\item Task list: Lista de nodos en los que la tarea tiene que ser
-  ejecutada.
-\item Recursos estadísticos: Qué aspectos de la tarea monitorear.
-\end{itemize}
-
-% \begin{block}{Ejemplo}
-%   Un \textbf{trabajo} puede consistir en 2 requisitos:
-%   \begin{enumerate}
-%   \item 1 nodo, 512 MB RAM como mínimo
-%   \item 24 nodos, 128 MB como mínimo.
-%   \end{enumerate}
-% \end{block}
-
-
+  \begin{block}{Ejemplo}
+    Un \textbf{trabajo} puede consistir en 2 requisitos:
+    \begin{enumerate}
+    \item 1 nodo, 512 MB RAM como mínimo, ejecutar la tarea X
+    \item 24 nodos, 128 MB como mínimo, ejecutar la tarea Y
+    \end{enumerate}
+  \end{block}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Tipos de Nodos}
+  Maui contempla los siguientes tipos de nodos:
+  \begin{enumerate}
+  \item \textbf{SHARED: } Se puede ejecutar cualquier combinación de tareas
+    provenientes de cualquier job.
+  \item \textbf{SINGLEUSER: } Se pueden ejecutar distintas tareas siempre
+    que sean del mismo usuario.
+  \item \textbf{SINGLEJOB: } Se pueden ejecutar distintas tareas siempre
+    que sean del mismo job.
+  \item \textbf{SINGLETASK: } Solamente se puede ejecutar una tarea simultáneamente.
+  \end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Prioridad a las tareas:}
+  La prioridad se calcula de acuerdo a cada \alert{componente}:\\
+  \begin{center}
+    \texttt{Nodos}, \texttt{Procesadores}, \texttt{Memoria}, \texttt{Swap}, \texttt{Disco}
+  \end{center}
+
+  \begin{center}
+    \texttt{<COMPONENT WEIGHT> * <SUBCOMPONENT WEIGHT> * <PROPRITY
+      SUBCOMPONENT VALUE>}
+  \end{center}
+
+  \begin{enumerate}
+  \item Gestión de trabajos mediante una FIFO de prioridades.
+  \item Posibilidad de modificar las prioridades en tiempo real.
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Asignación de nodos}
+  Maui proporciona distintas políticas para la asignación de nodos:
+
+  \begin{itemize}
+  \item \textbf{CPULOAD: } Máximo número de cpus sin usar.
+  \item \textbf{FIRSTAVAILABLE: } Primer nodo libre.
+  \item \textbf{MINRESOURCE: } Nodo que desaproveche menos recursos.
+  \item \textbf{CONTIGUOUS: } Asignar nodos contiguos.
+  \item \textbf{MAXBALANCE: } Intenta buscar los mejores nodos para el
+    trabajo (lento).
+  \item \textbf{FASTEST: } Selección de los nodos más rápidos.
+  \item \textbf{LOCAL: } Algoritmo propio de cada nodo (opcional).
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Bibliografía}
+  \begin{enumerate}
+  \item ``Maui Scheduler Administrator's Guide'' \\\url{www.clusterresources.com/products/maui/docs/}
+  \item ``Maui Scheduler'' \\\url{www.clusterresources.com/products/maui/docs/}
+  \item Artículo Wikipedia\\\url{en.wikipedia.org/wiki/Maui_Cluster_Scheduler}
+  \end{enumerate}
+\end{frame}
 \end{document}
+
+% 
+% 
+%%% 
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "./PRESENTACION.tex"
+%%% End:
